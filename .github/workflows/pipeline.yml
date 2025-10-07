@@ -8,6 +8,7 @@ on:
 jobs:
 
   register-dataset:
+    name: 📁 Register Dataset
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
@@ -24,6 +25,7 @@ jobs:
         run: python superkart_project/model_building/data_register.py
 
   data-prep:
+    name: 🧪 Data Preparation
     needs: register-dataset
     runs-on: ubuntu-latest
     steps:
@@ -41,6 +43,7 @@ jobs:
         run: python superkart_project/model_building/prep.py
 
   model-training:
+    name: 🤖 Model Training
     needs: data-prep
     runs-on: ubuntu-latest
     steps:
@@ -58,6 +61,7 @@ jobs:
         run: python superkart_project/model_building/train_and_upload_model.py
 
   deploy-hosting:
+    name: 🚀 Deploy to Hugging Face
     needs: model-training
     runs-on: ubuntu-latest
     steps:
@@ -69,7 +73,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r superkart_project/deployment/requirements.txt
 
-      - name: Deploy to Hugging Face Space
+      - name: Deploy Streamlit App to Hugging Face Space
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
         run: python superkart_project/hosting/hosting.py
