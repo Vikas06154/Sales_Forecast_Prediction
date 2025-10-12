@@ -3,16 +3,22 @@ name: Sales Forecast ML Pipeline
 on:
   push:
     branches:
-      - main  # Automatically triggers on push to main branch
+      - main  # Automatically triggers on push to the main branch
 
 jobs:
 
   register-dataset:
     name: 📁 Register Dataset
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
 
       - name: Install Dependencies
         run: |
@@ -28,9 +34,15 @@ jobs:
     name: 🧪 Data Preparation
     needs: register-dataset
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
 
       - name: Install Dependencies
         run: |
@@ -46,9 +58,15 @@ jobs:
     name: 🤖 Model Training
     needs: data-prep
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
 
       - name: Install Dependencies
         run: |
@@ -64,9 +82,15 @@ jobs:
     name: 🚀 Deploy to Hugging Face
     needs: model-training
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
 
       - name: Install Dependencies
         run: |
